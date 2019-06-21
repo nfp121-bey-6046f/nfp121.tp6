@@ -25,5 +25,16 @@ public abstract class AbstractTransaction{
             throw e;
         }
     }
+    final public void credit(int somme) throws SoldeDebiteurException{
+        try{
+            beginTransaction();
+            this.somme = somme;
+            cotisant.debit(somme);
+            endTransaction();
+        }catch(SoldeDebiteurException e){
+            rollbackTransaction();
+            throw e;
+        }
+    }
     
 }
